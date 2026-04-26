@@ -1,0 +1,22 @@
+# Large raw simulation output (42 MB) — canonical copy is on OSF (DOI 10.17605/OSF.IO/G9WFY).
+# Summary tables (mde-table.csv, power-table.csv, theoretical-anchor-candidates.csv,
+# simulation-summary.csv) are kept in the repo for at-a-glance review.
+simulation-results/simulation-results.csv
+
+# Local logs
+*.log
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS
+.DS_Store
+
+# Component C working artifacts (not yet generated; reproducible via setup-c.sh)
+component-c-runs/
+*.swebench-pairs.csv
+*.livecodebench-pairs.csv
+*.mmlu-pro-pairs.csv
