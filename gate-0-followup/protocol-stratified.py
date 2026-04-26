@@ -73,12 +73,26 @@ def parse_scaffold_from_name(name: str) -> str:
     return name.split()[0] if " " in name else name
 
 
-def parse_year_month(ts: str) -> str | None:
-    """download_timestamp is ISO-8601; return YYYY-MM."""
-    if not isinstance(ts, str) or not ts:
+_MONTHS = {
+    "january": 1, "february": 2, "march": 3, "april": 4,
+    "may": 5, "june": 6, "july": 7, "august": 8,
+    "september": 9, "october": 10, "november": 11, "december": 12,
+    "jan": 1, "feb": 2, "mar": 3, "apr": 4, "jun": 6, "jul": 7,
+    "aug": 8, "sep": 9, "oct": 10, "nov": 11, "dec": 12,
+}
+
+
+def parse_release_year_month(name: str) -> str | None:
+    """Extract model release YYYY-MM from agent name's parenthetical
+    "Scaffold (Model (Month Year))" — matches Ndzomga 2026
+    `scripts/data.py:parse_date_from_name`."""
+    m = re.search(r"\(([A-Za-z]+)\s+(\d{4})\)", name)
+    if not m:
         return None
-    m = re.match(r"^(\d{4})-(\d{2})", ts)
-    return f"{m.group(1)}-{m.group(2)}" if m else None
+    month = _MONTHS.get(m.group(1).lower())
+    if month is None:
+        return None
+    return f"{m.group(2)}-{month:02d}"
 
 
 def compute_pair_effects(df: pd.DataFrame) -> pd.DataFrame:
@@ -240,15 +254,17 @@ def main() -> int:
 
     # Build agent metadata
     agent_meta = (
-        df[["agent", "download_timestamp"]]
+        df[["agent"]]
         .drop_duplicates(subset=["agent"])
         .copy()
     )
     agent_meta["scaffold"] = agent_meta["agent"].apply(parse_scaffold_from_name)
-    agent_meta["yearmonth"] = agent_meta["download_timestamp"].apply(parse_year_month)
+    agent_meta["yearmonth"] = agent_meta["agent"].apply(parse_release_year_month)
+    n_dated = int(agent_meta["yearmonth"].notna().sum())
     print(f"Agent meta: {len(agent_meta)} agents; "
           f"scaffolds={agent_meta['scaffold'].nunique()}; "
-          f"year-months={agent_meta['yearmonth'].dropna().nunique()}")
+          f"release year-months parsed={n_dated}/{len(agent_meta)}; "
+          f"distinct year-months={agent_meta['yearmonth'].dropna().nunique()}")
 
     pairs = compute_pair_effects(df)
     print(f"Computed pairs: {len(pairs):,}")
