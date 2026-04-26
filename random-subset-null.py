@@ -6,10 +6,13 @@ deepest possible null on the methodology — if it fails, the m_b we measured
 is sampling structure dressed up as instability, and the methodology paper
 headline must be qualified.
 
-This script is filed under OSF Addendum-2 (DOI [TBD — to be filed before
-this script runs on held-out data]; backfilled here in a follow-up commit).
+This script is filed under OSF Addendum-2 (DOI 10.17605/OSF.IO/EKCUQ,
+registered 2026-04-26T21:20:20Z UTC, public + approved 2026-04-26).
+URL: https://osf.io/ekcuq/
 
-The script's commit SHA is the audit anchor for the analytic choices below.
+The script's commit SHA (23104aa) is the audit anchor for the analytic
+choices below; the OSF Addendum-2 DOI EKCUQ is the timestamp anchor for
+the variant menu and decision rule.
 
 ==============================================================================
 NULL HYPOTHESIS
