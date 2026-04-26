@@ -1,0 +1,2 @@
+source,test,obs_median_abs_delta,null_mean,null_std,z,p_extreme,ratio_obs_over_null_mean,decision,n_pairs,n_perm,seed
+swebench-verified,random-subset-null,0.1262130177514792,0.019767775147928997,0.0002450192533426587,434.4362377706165,0.0,6.384786188986073,defended,8911,1000,42
