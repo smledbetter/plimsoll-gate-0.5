@@ -12,6 +12,9 @@ updated: 2026-04-26
 **OSF pre-registration: [10.17605/OSF.IO/G9WFY](https://doi.org/10.17605/OSF.IO/G9WFY)** (registered 2026-04-26T18:18:39Z UTC).
 - Registration: https://osf.io/g9wfy/
 - Project (16 frozen artifacts): https://osf.io/e264j/
+- Source (audit anchor): https://github.com/smledbetter/plimsoll-gate-0.5
+  - Initial commit (registered artifacts): `3402147`
+  - Registration-deviations log: [`registration-deviations.md`](https://github.com/smledbetter/plimsoll-gate-0.5/blob/main/registration-deviations.md)
 - Schema: OSF Preregistration v4
 
 ## Purpose
