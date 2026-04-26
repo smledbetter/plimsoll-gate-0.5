@@ -45,11 +45,25 @@ def parse_zip(zip_path: Path) -> list[dict]:
         for name in zf.namelist():
             if not name.endswith(".json"):
                 continue
+            if "__MACOSX" in name or name.startswith("._") or "/._" in name:
+                # macOS extended-attribute sidecar files; not real JSON.
+                continue
             with zf.open(name) as f:
-                data = json.load(f)
+                try:
+                    data = json.load(f)
+                except json.JSONDecodeError:
+                    # Defensive: malformed JSON in source data (e.g. truncated
+                    # files from one ZIP). Skip and continue.
+                    continue
             if not isinstance(data, list):
                 continue
             for entry in data:
+                if not isinstance(entry, dict):
+                    # Defensive: at least one ZIP (DeepSeek-Coder-V2) has
+                    # stray non-dict records (e.g. literal "other" strings)
+                    # mixed into the eval list. Treat as no-attempt.
+                    # Documented in registration-deviations.md D5.
+                    continue
                 pred = entry.get("pred")
                 answer = entry.get("answer")
                 if pred is None or answer is None:

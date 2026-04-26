@@ -1,0 +1,41 @@
+[swebench-verified] Observed median |Δ|: 0.1262
+  pairs in observed set: 8,911
+  pairs reconstructed: 8,911
+
+Running 1,000 permutations × 8,911 pairs ...
+  100/1,000 done — running null mean: 0.0251
+  200/1,000 done — running null mean: 0.0251
+  300/1,000 done — running null mean: 0.0251
+  400/1,000 done — running null mean: 0.0251
+  500/1,000 done — running null mean: 0.0251
+  600/1,000 done — running null mean: 0.0252
+  700/1,000 done — running null mean: 0.0252
+  800/1,000 done — running null mean: 0.0252
+  900/1,000 done — running null mean: 0.0251
+  1,000/1,000 done — running null mean: 0.0252
+
+============================================================
+[swebench-verified] NULL DISTRIBUTION OF MEDIAN |Δ|
+============================================================
+  mean:    0.0252
+  std:     0.0004
+  p2.5:    0.0239
+  p25:     0.0252
+  median:  0.0253
+  p75:     0.0254
+  p97.5:   0.0256
+
+============================================================
+[swebench-verified] COMPARISON
+============================================================
+  observed median |Δ|: 0.1262
+  null mean:           0.0252
+  z-score:             +230.18
+  P(null ≥ obs):       0.0000
+
+============================================================
+[swebench-verified] FINAL Gate 0.5 VERDICT
+============================================================
+CLEARS — median |Δ| = 0.1262 ≥ 0.05 AND z = +230.18 ≥ 3.0. Pre-registered Gate 0.5 verdict for swebench-verified: replication confirmed.
+
+Wrote component-c/swebench-null.csv

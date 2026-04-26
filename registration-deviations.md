@@ -83,9 +83,49 @@ The registered regex is therefore a no-op on this corpus. Effect: every director
 
 Output files committed at `component-c-runs/livecodebench/livecodebench-summary.csv` and on VPS at `~/projects/plimsoll-gate-0.5/component-c/`. The 342 KB `livecodebench-pairs.csv` and 717 KB `livecodebench-per-platform.csv` are gitignored locally per the per-run output convention; canonical archives belong on OSF.
 
-## D5 — Future-proofing: any further deviations
+## D5 — MMLU-Pro prep script: defensive type checks (2026-04-26)
 
-If during Component C execution the prep scripts reveal a JSON schema mismatch (`prep-mmlu-pro.py` notes this is a "best-effort draft"), the resolution will be appended to this file as **D6**, **D7**, etc., with:
+**Data:** `TIGER-AI-Lab/MMLU-Pro` at pinned SHA `f418b116db00b065c2aea046518d8fcf74d39872`, 48 model-output ZIPs in `eval_results/`.
+
+**Issues encountered when running prep-mmlu-pro.py as-registered:**
+
+1. **Mixed-type list inside `model_outputs_DeepSeek-Coder-V2_5shots.zip`.** The JSON file inside this ZIP is a list of 10,394 entries; 43 of them are bare strings (e.g. literal `"other"`) interleaved with the 10,351 dict records. The registered script does `entry.get("pred")` on each element, which raises `AttributeError` on the strings.
+
+2. **macOS metadata sidecars in `model_outputs_gemini-3.1-pro_5-shots.zip`.** This ZIP contains 16 entries including `__MACOSX/eval_results/._summary.json` — a macOS extended-attribute file that is not valid JSON. The registered script calls `json.load(f)` without exception handling, which raises `JSONDecodeError`.
+
+**Mechanical patches applied (commit on this repo):**
+
+```python
+# Skip non-dict entries within a result list (DeepSeek-Coder-V2 stray strings)
+if not isinstance(entry, dict):
+    continue
+```
+
+```python
+# Skip macOS metadata sidecars before json.load
+if "__MACOSX" in name or name.startswith("._") or "/._" in name:
+    continue
+
+# Defensive parse: don't crash on malformed JSON in source data
+try:
+    data = json.load(f)
+except json.JSONDecodeError:
+    continue
+```
+
+**Why these are mechanical, not scientific.** The registered text says "Records missing pred or answer are skipped (treated as no-attempt rather than failure)." The two patches above extend this rule with the same intent — records that aren't even parseable as records (string entries, malformed JSON sidecars) are treated as no-attempt. No degree of freedom on the analyst is added; the substantive rule (`pred == answer` gives success=1) is unchanged. The 43 dropped string entries from DeepSeek-Coder-V2 represent 43/10,394 = 0.4% of that one model's records.
+
+**Result on the data:**
+- 48 ZIPs parsed
+- 48 agents (no model dropped)
+- 12,248 distinct task IDs (vs registered 12,032; the small overrun is from variant question IDs across models — handled naturally by per-pair shared-task intersection)
+- 536,289 triple rows
+- 14 disciplines preserved in `benchmark_name`
+- 44.1% in [0.30, 0.70] margin band
+
+## D6 — Future-proofing: any further deviations
+
+If during Component C execution the prep scripts reveal a JSON schema mismatch (`prep-mmlu-pro.py` notes this is a "best-effort draft"), the resolution will be appended to this file as **D7**, **D8**, etc., with:
 
 - The exact diff to the prep script
 - Why the change was mechanical (correcting a field-name bug) rather than scientific (a degree of freedom on the analyst)

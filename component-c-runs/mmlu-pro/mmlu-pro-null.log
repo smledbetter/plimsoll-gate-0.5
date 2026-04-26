@@ -1,0 +1,41 @@
+[mmlu-pro] Observed median |Δ|: 0.0865
+  pairs in observed set: 1,128
+  pairs reconstructed: 1,128
+
+Running 1,000 permutations × 1,128 pairs ...
+  100/1,000 done — running null mean: 0.0046
+  200/1,000 done — running null mean: 0.0046
+  300/1,000 done — running null mean: 0.0046
+  400/1,000 done — running null mean: 0.0046
+  500/1,000 done — running null mean: 0.0046
+  600/1,000 done — running null mean: 0.0046
+  700/1,000 done — running null mean: 0.0046
+  800/1,000 done — running null mean: 0.0046
+  900/1,000 done — running null mean: 0.0046
+  1,000/1,000 done — running null mean: 0.0046
+
+============================================================
+[mmlu-pro] NULL DISTRIBUTION OF MEDIAN |Δ|
+============================================================
+  mean:    0.0046
+  std:     0.0002
+  p2.5:    0.0043
+  p25:     0.0045
+  median:  0.0046
+  p75:     0.0047
+  p97.5:   0.0049
+
+============================================================
+[mmlu-pro] COMPARISON
+============================================================
+  observed median |Δ|: 0.0865
+  null mean:           0.0046
+  z-score:             +498.80
+  P(null ≥ obs):       0.0000
+
+============================================================
+[mmlu-pro] FINAL Gate 0.5 VERDICT
+============================================================
+CLEARS — median |Δ| = 0.0865 ≥ 0.05 AND z = +498.80 ≥ 3.0. Pre-registered Gate 0.5 verdict for mmlu-pro: replication confirmed.
+
+Wrote component-c/mmlu-pro-null.csv
