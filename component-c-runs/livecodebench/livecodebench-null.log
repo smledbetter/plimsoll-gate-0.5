@@ -1,0 +1,41 @@
+[livecodebench] Observed median |Δ|: 0.1562
+  pairs in observed set: 2,556
+  pairs reconstructed: 2,556
+
+Running 1,000 permutations × 2,556 pairs ...
+  100/1,000 done — running null mean: 0.0159
+  200/1,000 done — running null mean: 0.0159
+  300/1,000 done — running null mean: 0.0159
+  400/1,000 done — running null mean: 0.0159
+  500/1,000 done — running null mean: 0.0159
+  600/1,000 done — running null mean: 0.0159
+  700/1,000 done — running null mean: 0.0159
+  800/1,000 done — running null mean: 0.0159
+  900/1,000 done — running null mean: 0.0159
+  1,000/1,000 done — running null mean: 0.0159
+
+============================================================
+[livecodebench] NULL DISTRIBUTION OF MEDIAN |Δ|
+============================================================
+  mean:    0.0159
+  std:     0.0004
+  p2.5:    0.0152
+  p25:     0.0156
+  median:  0.0158
+  p75:     0.0161
+  p97.5:   0.0166
+
+============================================================
+[livecodebench] COMPARISON
+============================================================
+  observed median |Δ|: 0.1562
+  null mean:           0.0159
+  z-score:             +374.90
+  P(null ≥ obs):       0.0000
+
+============================================================
+[livecodebench] FINAL Gate 0.5 VERDICT
+============================================================
+CLEARS — median |Δ| = 0.1562 ≥ 0.05 AND z = +374.90 ≥ 3.0. Pre-registered Gate 0.5 verdict for livecodebench: replication confirmed.
+
+Wrote component-c/livecodebench-null.csv

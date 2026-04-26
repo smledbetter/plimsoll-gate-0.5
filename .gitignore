@@ -3,8 +3,9 @@
 # simulation-summary.csv) are kept in the repo for at-a-glance review.
 simulation-results/simulation-results.csv
 
-# Local logs
+# Local logs (but keep component-c run logs as audit anchors)
 *.log
+!component-c-runs/**/*.log
 
 # Python
 __pycache__/
@@ -15,8 +16,10 @@ venv/
 # OS
 .DS_Store
 
-# Component C working artifacts (not yet generated; reproducible via setup-c.sh)
-component-c-runs/
-*.swebench-pairs.csv
-*.livecodebench-pairs.csv
-*.mmlu-pro-pairs.csv
+# Component C working artifacts: keep small audit anchors (logs, headline
+# summaries, null distribution). Skip bulky per-pair and per-benchmark CSVs
+# (canonical archives belong on OSF, not git).
+component-c-runs/*/*-pairs.csv
+component-c-runs/*/*-per-platform.csv
+component-c-runs/*/*-per-discipline.csv
+component-c-runs/*/*-triples.csv
