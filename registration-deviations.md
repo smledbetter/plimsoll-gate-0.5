@@ -47,6 +47,10 @@ The registration itself is sealed and cannot be edited. This file lives in the p
 
 Component C runs will checkout these exact SHAs. Submissions added to those repos after these SHAs are out of scope per the registered frozen-list intersection rule.
 
+## D3 — Numbering gap (intentional)
+
+This slot is intentionally empty. During drafting of this file, content originally numbered D3 was folded into D2 (data-source SHAs). The numbering gap was preserved rather than re-collapsed because **D4**, **D5**, and **D6** are referenced by number in other files (`prep-mmlu-pro.py:65` cites D5; `robustness/DESIGN.md` cites D4). Renumbering would have created a different audit-trail problem (broken cross-references) than the cosmetic one it would have solved. A 2028 reproducer reading "D1, D2, D4, D5, D6" should treat D3 as deliberately reserved, not lost. No substantive content is missing.
+
 ## D4 — LiveCodeBench prep run (2026-04-26)
 
 **Data:** `LiveCodeBench/submissions` at pinned SHA `6ca212e9c2039373f6e5069d37ffa9db66e23736`, cloned 2026-04-26 ~18:33 UTC.
