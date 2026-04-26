@@ -53,6 +53,12 @@ def main() -> int:
                         choices=["swebench-verified", "livecodebench", "mmlu-pro"])
     parser.add_argument("--n-perm", type=int, default=N_PERM)
     parser.add_argument("--seed", type=int, default=SEED)
+    parser.add_argument("--margin-lo", type=float, default=MARGIN_LO)
+    parser.add_argument("--margin-hi", type=float, default=MARGIN_HI)
+    parser.add_argument("--min-shared-full", type=int, default=MIN_SHARED_FULL)
+    parser.add_argument("--min-shared-margin", type=int, default=MIN_SHARED_MARGIN)
+    parser.add_argument("--filter-benchmark", type=str, default=None,
+                        help="Optional: filter input to benchmark_name == this value (variant B).")
     args = parser.parse_args()
 
     if not args.input.exists():
@@ -63,16 +69,24 @@ def main() -> int:
     rng = np.random.default_rng(args.seed)
     df = pd.read_csv(args.input)
     df["success"] = df["success"].astype(int)
+    if args.filter_benchmark is not None:
+        before = len(df)
+        df = df[df["benchmark_name"] == args.filter_benchmark]
+        print(f"  filter-benchmark={args.filter_benchmark!r}: {before:,} -> {len(df):,} rows")
+        if df.empty:
+            sys.exit(f"ERROR: no rows after filter-benchmark={args.filter_benchmark!r}")
     obs = pd.read_csv(args.pairs)
     obs_median = float(obs["abs_delta"].median())
     print(f"[{args.source_name}] Observed median |Δ|: {obs_median:.4f}")
+    print(f"  band=[{args.margin_lo:.2f},{args.margin_hi:.2f}]  "
+          f"thresholds=({args.min_shared_full},{args.min_shared_margin})")
     print(f"  pairs in observed set: {len(obs):,}")
 
     # Pool across benchmark_name (matches analyze.py POOLED primary).
     task_difficulty = df.groupby("task_id")["success"].mean()
     margin_tasks = set(
         task_difficulty[
-            (task_difficulty >= MARGIN_LO) & (task_difficulty <= MARGIN_HI)
+            (task_difficulty >= args.margin_lo) & (task_difficulty <= args.margin_hi)
         ].index
     )
     wide = df.pivot_table(
@@ -86,13 +100,13 @@ def main() -> int:
             continue
         sa, sb = wide.loc[a], wide.loc[b]
         both = sa.notna() & sb.notna()
-        if int(both.sum()) < MIN_SHARED_FULL:
+        if int(both.sum()) < args.min_shared_full:
             continue
         task_ids = sa[both].index
         margin_mask = np.fromiter(
             (t in margin_tasks for t in task_ids), dtype=bool
         )
-        if int(margin_mask.sum()) < MIN_SHARED_MARGIN:
+        if int(margin_mask.sum()) < args.min_shared_margin:
             continue
         pair_data.append(
             (sa[both].to_numpy(dtype=float),

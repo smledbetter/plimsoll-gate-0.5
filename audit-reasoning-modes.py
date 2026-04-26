@@ -51,6 +51,12 @@ MARGIN_HI = 0.70
 MIN_SHARED_FULL = 20
 MIN_SHARED_MARGIN = 8
 
+# Module-level overrides set by main(). Defaults are the OSF-locked baseline.
+_MARGIN_LO = MARGIN_LO
+_MARGIN_HI = MARGIN_HI
+_MIN_SHARED_FULL = MIN_SHARED_FULL
+_MIN_SHARED_MARGIN = MIN_SHARED_MARGIN
+
 
 # (description, base_agent_dir, advanced_agent_dir)
 PAIRS: list[tuple[str, str, str]] = [
@@ -104,7 +110,7 @@ def evaluate_pair(df: pd.DataFrame,
     task_difficulty = df.groupby("task_id")["success"].mean()
     margin_tasks = set(
         task_difficulty[
-            (task_difficulty >= MARGIN_LO) & (task_difficulty <= MARGIN_HI)
+            (task_difficulty >= _MARGIN_LO) & (task_difficulty <= _MARGIN_HI)
         ].index
     )
 
@@ -119,7 +125,7 @@ def evaluate_pair(df: pd.DataFrame,
     sb = wide.loc[advanced_agent]
     both = sa.notna() & sb.notna()
     n_full = int(both.sum())
-    if n_full < MIN_SHARED_FULL:
+    if n_full < _MIN_SHARED_FULL:
         return {"insufficient_overlap": (n_full, "full")}
 
     effect_full = float((sb[both] - sa[both]).mean())
@@ -129,7 +135,7 @@ def evaluate_pair(df: pd.DataFrame,
         (t in margin_tasks for t in task_ids_both), dtype=bool
     )
     n_margin = int(margin_mask.sum())
-    if n_margin < MIN_SHARED_MARGIN:
+    if n_margin < _MIN_SHARED_MARGIN:
         return {"insufficient_overlap": (n_margin, "margin")}
 
     sa_m = sa[both].to_numpy(dtype=float)[margin_mask]
@@ -173,7 +179,19 @@ def main() -> int:
                         default=M_B_LIVECODEBENCH,
                         help="Per-benchmark median |Δ paired effect size| "
                              "(the Plimsoll capability-margin statistic m_b).")
+    parser.add_argument("--margin-lo", type=float, default=MARGIN_LO,
+                        help=f"Lower bound of capability-margin band (default: {MARGIN_LO}).")
+    parser.add_argument("--margin-hi", type=float, default=MARGIN_HI,
+                        help=f"Upper bound of capability-margin band (default: {MARGIN_HI}).")
+    parser.add_argument("--min-shared-full", type=int, default=MIN_SHARED_FULL)
+    parser.add_argument("--min-shared-margin", type=int, default=MIN_SHARED_MARGIN)
     args = parser.parse_args()
+
+    global _MARGIN_LO, _MARGIN_HI, _MIN_SHARED_FULL, _MIN_SHARED_MARGIN
+    _MARGIN_LO = args.margin_lo
+    _MARGIN_HI = args.margin_hi
+    _MIN_SHARED_FULL = args.min_shared_full
+    _MIN_SHARED_MARGIN = args.min_shared_margin
 
     if not args.input.exists():
         sys.exit(f"ERROR: {args.input} not found.")
