@@ -3,8 +3,10 @@ project: Plimsoll
 kind: post-hoc-sensitivity-design
 gate: 0.5
 osf_doi: 10.17605/OSF.IO/G9WFY
-osf_addendum_doi: [TBD — to be filed before any A2 variant runs; backfilled to this file in a follow-up commit before execution]
-status: design v3 (post-second-specialist-review, pre-execution)
+osf_addendum_doi: 10.17605/OSF.IO/3PD2A
+osf_addendum_url: https://osf.io/3pd2a/
+osf_addendum_registered: 2026-04-26T20:20:26Z UTC
+status: design v3 — addendum filed, pre-execution
 created: 2026-04-26
 revision: v3 — addresses convergent residuals from methodologist + skeptic + pre-reg-auditor second-pass review
 ---
