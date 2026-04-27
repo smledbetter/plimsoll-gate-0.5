@@ -1,0 +1,2 @@
+source,variant,n_baseline_pairs,n_variant_pairs,n_qualifying,n_baseline_only,n_variant_only,n_sign_flips,flip_rate,category,descriptive_only,n_pairs_floor
+mmlu-pro,B-disc-history,1128,1081,1081,47,0,108,0.09990749306197964,mildly-unstable,False,50

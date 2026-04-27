@@ -1,0 +1,2 @@
+source,n_pairs,spearman_rho,pearson_r,median_abs_delta,p75_abs_delta,p95_abs_delta,max_abs_delta,sign_flip_rate,n_sign_flips
+swebench-verified,8911,0.9354749114731508,0.9260687200617661,0.1446875,0.26065625000000003,0.35746875,0.46025,0.04500056110425317,401

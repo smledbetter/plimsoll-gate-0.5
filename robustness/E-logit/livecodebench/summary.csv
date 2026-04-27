@@ -1,0 +1,2 @@
+source,scale,n_pairs,spearman_rho,pearson_r,median_abs_delta,p75_abs_delta,p95_abs_delta,max_abs_delta,sign_flip_rate,n_sign_flips
+livecodebench,logit,2556,0.9934411757671101,0.9906144415671844,1.1821259382014964,2.0118904418626418,3.1455284811259947,4.5840159823332876,0.032081377151799685,82

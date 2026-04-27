@@ -1,0 +1,2 @@
+source,variant,n_baseline_pairs,n_variant_pairs,n_qualifying,n_baseline_only,n_variant_only,n_sign_flips,flip_rate,category,descriptive_only,n_pairs_floor
+swebench-verified,A-band-0.25-0.75,8911,8911,8911,0,0,168,0.018853102906520033,stable,False,50

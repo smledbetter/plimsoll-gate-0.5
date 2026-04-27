@@ -1,0 +1,2 @@
+source,variant,n_baseline_pairs,n_variant_pairs,n_qualifying,n_baseline_only,n_variant_only,n_sign_flips,flip_rate,category,descriptive_only,n_pairs_floor
+livecodebench,A-band-0.40-0.60,2556,2556,2556,0,0,68,0.026604068857589983,stable,False,50

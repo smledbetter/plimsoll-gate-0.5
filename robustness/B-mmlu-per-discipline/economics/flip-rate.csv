@@ -1,0 +1,2 @@
+source,variant,n_baseline_pairs,n_variant_pairs,n_qualifying,n_baseline_only,n_variant_only,n_sign_flips,flip_rate,category,descriptive_only,n_pairs_floor
+mmlu-pro,B-disc-economics,1128,1128,1128,0,0,51,0.04521276595744681,stable,False,50

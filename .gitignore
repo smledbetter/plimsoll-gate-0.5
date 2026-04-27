@@ -23,3 +23,9 @@ component-c-runs/*/*-pairs.csv
 component-c-runs/*/*-per-platform.csv
 component-c-runs/*/*-per-discipline.csv
 component-c-runs/*/*-triples.csv
+
+# Robustness pass: same convention. Keep summary, null, flip-rate, audit
+# (small audit anchors). Skip bulky per-pair/triples CSVs.
+robustness/**/pairs.csv
+robustness/**/flip-rate.pairs.csv
+robustness/**/*-triples.csv
