@@ -1,0 +1,5 @@
+# Raw METR Time Horizon 1.1 runs.jsonl (re-downloadable from
+# https://github.com/METR/eval-analysis-public/blob/main/reports/time-horizon-1-1/data/raw/runs.jsonl).
+# Skipped from the public artifact to keep the repo small; the prep script
+# (prep-metr-hcast.py) names the exact source URL.
+metr-time-horizon-1-1-runs.jsonl

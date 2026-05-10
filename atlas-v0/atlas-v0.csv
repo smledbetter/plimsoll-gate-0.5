@@ -1,0 +1,7 @@
+benchmark,domain,n_tasks,n_agents,n_pairs,stage1_verdict,in_band_fraction,m_b,null_z,stage2_verdict,stage3_verdict,atlas_verdict,notes
+swebench-verified,agentic-code,500,134,8911,PASS,0.338,0.1262,230.18,PRODUCES_SIGNAL,N_A,FIT_FOR_PLIMSOLL,Gate 0.5 primary; in-band fraction is exact (all pairs share full 500 instances)
+livecodebench,competitive-programming,1055,72,2556,PASS,0.375,0.1562,374.90,PRODUCES_SIGNAL,N_A,FIT_FOR_PLIMSOLL,Gate 0.5 secondary; in-band fraction from draft-3 §5.4 (396/1055 questions)
+mmlu-pro,multi-discipline-mc,12032,48,1128,PASS,0.432,0.0865,498.80,PRODUCES_SIGNAL,N_A,FIT_FOR_PLIMSOLL,"Gate 0.5 secondary; in-band fraction from per-pair median (n_full varies, ZIP-shaped submissions)"
+metr-hcast,agentic-task,157,21,210,PASS,0.382,0.1497,63.26,PRODUCES_SIGNAL,N_A,FIT_FOR_PLIMSOLL,METR Time Horizon 1.1 HCAST subset; per-task pass-rate from mean of seed reruns; null-perms=200
+gsm8k,math,1319,27,351,PASS,0.500,0.0823,93.98,PRODUCES_SIGNAL,N_A,FIT_FOR_PLIMSOLL,HF Open LLM Leaderboard v1 archive; 27 of 30 locked frontier open-weights models had GSM8K parquets; null-perms=200
+hellaswag,multi-discipline-mc,10042,24,253,FAIL,0.144,0.1641,864.32,PRODUCES_SIGNAL_BUT_GATED,N_A,STRUCTURALLY_UNFIT,"HF Open LLM Leaderboard v1 archive; 24 of 30 locked models had HellaSwag parquets; 14.4% in-band BELOW 15% Stage 1 floor (46.5% saturated, 7.8% floor); doctor correctly flags despite m_b=0.164 and z=+864 in surviving in-band pairs"
